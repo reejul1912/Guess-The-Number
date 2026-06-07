@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include <conio.h>
+#include <string.h>
 
 #pragma comment(lib,"winmm.lib")
 
@@ -11,8 +12,8 @@ static void window_size()
 {
     SetConsoleTitle("Guess The Number!");
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    SMALL_RECT windowSize = {0, 0, 49, 15};
-    COORD bufferSize = {49, 15};
+    SMALL_RECT windowSize = {0, 0, 49, 14};
+    COORD bufferSize = {49, 14};
     SetConsoleScreenBufferSize(hOut, bufferSize);
     SetConsoleWindowInfo(hOut, TRUE, &windowSize);
     HWND console = GetConsoleWindow();
@@ -74,7 +75,7 @@ static void show_game_menu()
     printf("\t        GUESS THE NUMBER!\n");
     printf("\t   ~-~-~-~-~-~-~-~-~-~-~-~-~-~\n");
     SetConsoleTextAttribute(text, 11);
-    printf("\t      [Press any key to play]\n");
+    printf("\t     [Press any key to play]\n");
     SetConsoleTextAttribute(text, 7);
     printf("\n\n\t    Version 1.0 by Reejul Kant");
     _getch();
@@ -190,12 +191,11 @@ int main(void)
                 printf("\n\n");
             }
             
-            attempt++;
-            
             SetConsoleTextAttribute(text, 7);
             printf(" Enter: ");
             if (scanf("%d", &guess) == 1)
             {
+            	attempt++;
                 play_sound("menu_click");
                 diff = number - guess;
                 
@@ -239,7 +239,6 @@ int main(void)
             else
             {
                 while(getchar() != '\n');
-                Sleep(1000);
             }
         }
         
